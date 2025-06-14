@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pide tus aromas aquí</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the iframe to ensure it fills the container and is responsive */
+        .pdf-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%; /* Adjust this value to control the iframe's height relative to its width */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem; /* Apply rounded corners to the container */
+            /*
+                IMPORTANT: If you applied CSS rotation to the iframe previously, remove it here
+                as it's generally not ideal for PDF content display.
+                The best approach is to rotate the PDF file itself before uploading.
+                transform: rotate(90deg);
+                transform-origin: center center;
+            */
+        }
+
+        .pdf-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none; /* Remove default iframe border */
+        }
+        /* Basic animations for a smoother user experience */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out 0.5s forwards; /* Delayed start */
+        }
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-pink-100 to-purple-100 flex items-center justify-center min-h-screen p-4 font-sans text-gray-800">
+    <div class="container max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-6 md:p-8 transform transition-all duration-300 hover:scale-[1.01]">
+        <header class="text-center mb-8">
+            <h1 class="text-5xl font-extrabold text-purple-700 leading-tight mb-2 tracking-wide animate-fade-in-down">
+                Aromas Exquisitos
+            </h1>
+            <p class="text-xl text-gray-600 font-medium animate-fade-in-up">
+                Una colección cautivadora de inspiraciones de Aromas.
+            </p>
+        </header>
+
+        <main class="mb-8">
+            <div class="pdf-container">
+                <!-- IMPORTANT: Replace 'catalogoLociones.pdf' with the actual name of your PDF file. -->
+                <iframe src="catalogoLociones.pdf" title="Perfume Pictures PDF">
+                    <p class="text-center text-red-500 p-4">
+                        Your browser does not support PDFs. Please download the file to view it:
+                        <a href="catalogoLociones.pdf" download class="text-blue-600 hover:underline font-bold">Download PDF</a>
+                    </p>
+                </iframe>
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-4">
+                (Desplácese dentro del visor de PDF para explorar la colección)
+            </p>
+
+            <!-- New Section: Contact Form -->
+            <section class="mt-12 pt-8 border-t border-gray-200 animate-fade-in">
+                <h2 class="text-3xl font-bold text-purple-600 text-center mb-6">
+                    Consultar sobre 
+                </h2>
+                <p class="text-lg text-gray-700 text-center mb-8">
+                    ¿Te interesa algún aromas específico de nuestra colección? ¡Envíanos un mensaje!
+                </p>
+
+                <!--
+                    IMPORTANT: Replace "YOUR_FORMSPREE_ENDPOINT" with the unique
+                    endpoint URL you get from Formspree after creating a new form.
+                -->
+                <form action="https://formspree.io/f/mblyyglw" method="POST" class="max-w-xl mx-auto space-y-6 bg-purple-50 p-6 rounded-lg shadow-inner">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Su nombre</label>
+                        <input type="text" name="name" id="name" autocomplete="name" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm transition duration-150 ease-in-out">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Su correo electrónico</label>
+                        <input type="email" name="_replyto" id="email" autocomplete="email" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm transition duration-150 ease-in-out">
+                    </div>
+
+                    <div>
+                        <label for="Aromas" class="block text-sm font-medium text-gray-700 mb-1">
+                            Lista de aromas que te interesan (o tu mensaje)
+                        </label>
+                        <textarea name="mensaje" id="Aromas" rows="5" required
+                                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 sm:text-sm transition duration-150 ease-in-out"
+                                  placeholder="Por ejemplo, 'Número de página, nombre del perfume', 'para hombre o mujer', o cualquier consulta general."></textarea>
+                        <p class="mt-2 text-xs text-gray-500">
+                            Por favor describe los aromas que te interesan, tal y como aparecen en el PDF.
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="entregar"
+                                class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out transform hover:scale-105 active:scale-95">
+                            Send Inquiry
+                            <!-- Optional: Add an icon -->
+                            <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <footer class="text-center text-gray-400 text-sm mt-8 pt-4 border-t border-gray-200">
+            &copy; 2024 Perfume Gallery. All rights reserved.
+        </footer>
+    </div>
+</body>
+</html>
