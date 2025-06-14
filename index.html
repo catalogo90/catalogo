@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lociones Colecciones</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the iframe to ensure it fills the container and is responsive */
+        .pdf-container {
+            position: relative;
+            width: 100%;
+            /* Maintain aspect ratio or set a minimum height */
+            padding-bottom: 75%; /* Adjust this value to control the iframe's height relative to its width */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem; /* Apply rounded corners to the container */
+        }
+
+        .pdf-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none; /* Remove default iframe border */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-pink-100 to-purple-100 flex items-center justify-center min-h-screen p-4 font-sans text-gray-800">
+    <div class="container max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-6 md:p-8 transform transition-all duration-300 hover:scale-[1.01]">
+        <header class="text-center mb-8">
+            <h1 class="text-5xl font-extrabold text-purple-700 leading-tight mb-2 tracking-wide animate-fade-in-down">
+                Aromas Exquisitos
+            </h1>
+            <p class="text-xl text-gray-600 font-medium animate-fade-in-up">
+                Una colección cautivadora de inspiraciones de perfumes.
+            </p>
+        </header>
+
+        <main class="mb-8">
+            <div class="pdf-container">
+                <!--
+                    IMPORTANT: Replace 'perfume_pictures.pdf' with the actual name of your PDF file.
+                    Ensure the PDF file is in the same directory as this HTML file, or provide
+                    the correct relative path.
+                -->
+                <iframe src="catalogoLociones.pdf" title="Perfume Pictures PDF">
+                    <p class="text-center text-red-500 p-4">
+                        Your browser does not support PDFs. Please download the file to view it:
+                        <a href="catalogoLociones.pdf" download class="text-blue-600 hover:underline font-bold">Download PDF</a>
+                    </p>
+                </iframe>
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-4">
+                (Desplácese dentro del visor de PDF para explorar la colección)
+            </p>
+        </main>
+
+        <footer class="text-center text-gray-400 text-sm mt-8 pt-4 border-t border-gray-200">
+            &copy; 2024 Perfume Gallery. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Simple animations for a more engaging feel -->
+    <style>
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out 0.5s forwards; /* Delayed start */
+        }
+    </style>
+</body>
+</html>
