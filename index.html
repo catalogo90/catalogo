@@ -6,6 +6,11 @@
     <title>Pide tus aromas aquí</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Enable smooth scrolling for the whole page */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Custom styles for the image viewer container and individual page images */
         body {
             margin: 0;
@@ -41,6 +46,76 @@
             font-size: 14px;
         }
 
+        /* Floating Button Container and Options Styling */
+        #floating-nav-container {
+            position: fixed;
+            bottom: 1.5rem; /* Equivalent to Tailwind's bottom-6 */
+            right: 1.5rem;  /* Equivalent to Tailwind's right-6 */
+            z-index: 50; /* Ensure it's above other content */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* Align options to the right */
+            gap: 0.5rem; /* Space between the main button and options */
+        }
+
+        #nav-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem; /* Space between individual option buttons */
+            background-color: rgba(109, 40, 217, 0.9); /* Purple-700 with slight transparency */
+            padding: 0.75rem; /* Equivalent to Tailwind's p-3 */
+            border-radius: 0.5rem; /* Equivalent to Tailwind's rounded-lg */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25); /* Stronger shadow */
+            transition: all 0.3s ease-out; /* Smooth transition for show/hide */
+            opacity: 0;
+            transform: translateY(10px) scale(0.95);
+            pointer-events: none; /* Disable interaction when hidden */
+        }
+
+        #nav-options.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto; /* Enable interaction when shown */
+        }
+
+        #mainFloatingBtn {
+            background-color: #7c3aed; /* Purple-600 */
+            color: white;
+            padding: 1rem; /* Equivalent to Tailwind's p-4 */
+            border-radius: 9999px; /* Equivalent to Tailwind's rounded-full */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3); /* Stronger shadow */
+            transition: all 0.3s ease-in-out;
+            transform: scale(1); /* Initial scale */
+        }
+
+        #mainFloatingBtn:hover {
+            background-color: #6d28d9; /* Purple-700 on hover */
+            transform: scale(1.05); /* Slight scale up */
+        }
+
+        #mainFloatingBtn:active {
+            transform: scale(0.95); /* Slight scale down on click */
+        }
+
+        #mainFloatingBtn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.5); /* Focus ring */
+        }
+
+        #nav-options button {
+            @apply px-4 py-2 text-sm font-medium rounded-md;
+            background-color: #8b5cf6; /* Slightly lighter purple for options */
+            color: white;
+            transition: background-color 0.2s ease-in-out;
+        }
+        #nav-options button:hover {
+            background-color: #a78bfa; /* Even lighter purple on hover */
+        }
+        #nav-options button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5);
+        }
+
         /* Original animations (kept from your original code) */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
@@ -70,23 +145,22 @@
 </head>
 <body class="bg-gradient-to-r from-pink-100 to-purple-100 flex items-center justify-center min-h-screen p-4 font-sans text-gray-800">
     <div class="container max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-6 md:p-8 transform transition-all duration-300 hover:scale-[1.01]">
-       <header class="text-center mb-8">
-           <h1 class="text-5xl font-extrabold text-purple-700 leading-tight mb-2 tracking-wide animate-fade-in-down">
-               Aromas Exquisitos
-           </h1>
-           <p class="text-xl text-gray-600 font-medium animate-fade-in-up">
-               Una colección cautivadora de inspiraciones de Aromas.
-           </p>
-			
-		 <div class="mt-6 text-center animate-fade-in-up">
-              <a href="catalogoLociones.pdf" download class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out">
-                  <svg class="-ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M10 18a.75.75 0 01-.75-.75V4.66L6.59 7.91a.75.75 0 01-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-1.08 1.04L10.75 4.66v12.59A.75.75 0 0110 18zM4.75 16.25a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5H4.75z" clip-rule="evenodd" />
-                  </svg>
-                   Descargar Catálogo PDF
-              </a>
-         </div>
-			
+        <header class="text-center mb-8">
+            <h1 class="text-5xl font-extrabold text-purple-700 leading-tight mb-2 tracking-wide animate-fade-in-down">
+                Aromas Exquisitos
+            </h1>
+            <p class="text-xl text-gray-600 font-medium animate-fade-in-up">
+                Una colección cautivadora de inspiraciones de Aromas.
+            </p>
+
+            <div class="mt-6 text-center animate-fade-in-up">
+                <a href="catalogoLociones.pdf" download class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out">
+                    <svg class="-ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 18a.75.75 0 01-.75-.75V4.66L6.59 7.91a.75.75 0 01-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-1.08 1.04L10.75 4.66v12.59A.75.75 0 0110 18zM4.75 16.25a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5H4.75z" clip-rule="evenodd" />
+                    </svg>
+                    Descargar Catálogo PDF
+                </a>
+            </div>
         </header>
 
         <main class="mb-8">
@@ -130,7 +204,7 @@
                     </div>
 
                     <div class="text-center">
-                        <button type="submit"  class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out transform hover:scale-105 active:scale-95">
+                        <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out transform hover:scale-105 active:scale-95">
                             Send Inquiry
                             <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -147,10 +221,30 @@
         </footer>
     </div>
 
+    <div id="floating-nav-container">
+        <div id="nav-options" class="hidden">
+            <button id="scrollToTopBtn">
+                Ir al inicio
+            </button>
+            <button id="scrollToBottomBtn">
+                Ir al final
+            </button>
+            <button id="goToPageBtn">
+                Ir a página...
+            </button>
+        </div>
+
+        <button id="mainFloatingBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+
     <script>
         // --- Configuration for your JPEG images ---
         const totalPages = 177; // <<-- IMPORTANT: Total number of pages
-        const imageBaseUrl = 'LocionesIMG/'; // <<-- Folder path relative to orderpage.html
+        const imageBaseUrl = 'LocionesIMG/'; // <<-- Folder path relative to index.html
         const imageFileExtension = '.jpg'; // <<-- File extension
         const startPageNumber = 1; // <<-- Images start from L (1).jpg
 
@@ -171,6 +265,7 @@
             img.dataset.src = `${imageBaseUrl}${fileName}`;
             img.alt = `Page ${pageNumber} of document`;
             img.classList.add('page-image');
+            img.id = `page-${pageNumber}`; // ADDED: Unique ID for each page image
             img.onload = () => {
                 // Optional: console.log(`Page ${pageNumber} loaded`);
             };
@@ -182,7 +277,6 @@
         }
 
         // Generate all image elements and append them to the container
-        // Loop from startPageNumber (1) up to totalPages (177)
         for (let i = startPageNumber; i <= totalPages; i++) {
             const img = createPageImage(i);
             viewerContainer.appendChild(img);
@@ -223,6 +317,79 @@
                 }
             });
         }
+
+        // --- Floating Navigation Button Logic ---
+        const mainFloatingBtn = document.getElementById('mainFloatingBtn');
+        const navOptions = document.getElementById('nav-options');
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        const scrollToBottomBtn = document.getElementById('scrollToBottomBtn');
+        const goToPageBtn = document.getElementById('goToPageBtn');
+
+        let optionsVisible = false; // State to track menu visibility
+
+        mainFloatingBtn.addEventListener('click', () => {
+            optionsVisible = !optionsVisible;
+            if (optionsVisible) {
+                navOptions.classList.remove('hidden');
+                setTimeout(() => navOptions.classList.add('show'), 10); // Small delay for transition
+            } else {
+                navOptions.classList.remove('show');
+                setTimeout(() => navOptions.classList.add('hidden'), 300); // Hide after transition
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Optionally close the menu after action
+            optionsVisible = false;
+            navOptions.classList.remove('show');
+            setTimeout(() => navOptions.classList.add('hidden'), 300);
+        });
+
+        scrollToBottomBtn.addEventListener('click', () => {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            // Optionally close the menu after action
+            optionsVisible = false;
+            navOptions.classList.remove('show');
+            setTimeout(() => navOptions.classList.add('hidden'), 300);
+        });
+
+        goToPageBtn.addEventListener('click', () => {
+            let pageNumberInput = prompt(`Ir a la página (1-${totalPages}):`);
+            if (pageNumberInput === null) { // User clicked cancel
+                return;
+            }
+            let pageNum = parseInt(pageNumberInput);
+
+            if (isNaN(pageNum) || pageNum < 1 || pageNum > totalPages) {
+                alert(`Por favor, introduce un número de página válido entre 1 y ${totalPages}.`);
+            } else {
+                const targetElement = document.getElementById(`page-${pageNum}`);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    alert(`No se encontró la página ${pageNum}.`);
+                }
+            }
+            // Optionally close the menu after action
+            optionsVisible = false;
+            navOptions.classList.remove('show');
+            setTimeout(() => navOptions.classList.add('hidden'), 300);
+        });
+
+        // Close options if clicked outside (optional, but good UX)
+        document.addEventListener('click', (event) => {
+            if (optionsVisible && !mainFloatingBtn.contains(event.target) && !navOptions.contains(event.target)) {
+                optionsVisible = false;
+                navOptions.classList.remove('show');
+                setTimeout(() => navOptions.classList.add('hidden'), 300);
+            }
+        });
+
+        // Prevent initial prompt on page load
+        window.addEventListener('load', () => {
+            // Your existing page load logic (like lazy loading)
+        });
 
     </script>
 </body>
